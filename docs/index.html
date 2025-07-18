@@ -66,6 +66,39 @@
         .algorithm-list-container.hidden {
             display: none;
         }
+        .algorithm-detail-section h3 {
+            font-size: 1.75rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            color: #1a202c; /* gray-900 */
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .algorithm-detail-section p, .algorithm-detail-section ul, .algorithm-detail-section ol {
+            margin-bottom: 1rem;
+            color: #4a5568; /* gray-700 */
+            line-height: 1.6;
+        }
+        .algorithm-detail-section ul, .algorithm-detail-section ol {
+            list-style-type: disc;
+            margin-left: 1.25rem;
+        }
+        .algorithm-detail-section ul ul {
+            list-style-type: circle;
+            margin-left: 1.25rem;
+        }
+        .algorithm-detail-section ol ol {
+            list-style-type: lower-alpha;
+            margin-left: 1.25rem;
+        }
+        .algorithm-detail-section pre {
+            background-color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -87,7 +120,7 @@
         <section class="lg:w-2/3 bg-white rounded-lg shadow-md p-6 description-box flex flex-col justify-between">
             <div>
                 <h2 id="algorithm-detail-title" class="text-3xl font-bold text-gray-900 mb-4">Select an Algorithm</h2>
-                <div id="algorithm-detail-content" class="text-gray-700 leading-relaxed">
+                <div id="algorithm-detail-content" class="text-gray-700 leading-relaxed algorithm-detail-section">
                     <p>Click on any algorithm from the list on the left to learn more about it.</p>
                 </div>
             </div>
@@ -195,6 +228,518 @@
             ]
         };
 
+        // --- Predefined Content for CNN ---
+        const cnnContent = `
+            <h3>Concise Overview</h3>
+            <p><strong>1. What It Is:</strong> A Convolutional Neural Network (CNN) is a powerful deep learning algorithm specifically designed for processing and analyzing structured grid-like data, most notably images and videos. It excels at automatically learning complex visual features directly from raw pixel data.</p>
+            <p><strong>2. How It Works (in a Nutshell):</strong> CNNs use specialized "convolutional" layers with learnable filters that scan the input to detect patterns like edges and textures. These are followed by "pooling" layers that reduce data size while preserving important information. By stacking these layers, CNNs build a hierarchical understanding of visual data, from simple features to complex objects.</p>
+            <p><strong>3. Key Strengths:</strong> CNNs offer exceptional accuracy in visual tasks, perform automatic feature extraction (eliminating manual effort), exhibit translation invariance (recognizing patterns regardless of position), and are highly scalable for large datasets.</p>
+            <p><strong>4. Common Applications:</strong> Widely used in image classification, object detection (e.g., identifying cars or people in photos), facial recognition, medical image analysis (e.g., tumor detection), and self-driving cars.</p>
+            <p><strong>5. Python Quick Start:</strong> Key modules for building CNNs are found in deep learning frameworks like TensorFlow/Keras (e.g., <code>tf.keras.layers.Conv2D</code>, <code>tf.keras.models.Sequential</code>) and PyTorch (e.g., <code>torch.nn.Conv2d</code>, <code>torch.nn.Module</code>).</p>
+
+            <h3>Technical Deep Dive</h3>
+            <p><strong>1. Abstract:</strong> CNNs are deep learning models optimized for spatial data processing, leveraging convolutional layers for feature extraction and pooling for dimensionality reduction, leading to state-of-the-art performance in computer vision.</p>
+            <p><strong>2. Theoretical Foundations:</strong> Based on linear algebra (convolution), calculus (backpropagation for gradient descent), and statistics (pooling for feature invariance). Inspired by the visual cortex's hierarchical processing.</p>
+            <p><strong>3. Algorithmic Steps:</strong> Input image -> Convolution (feature maps) -> Activation (non-linearity) -> Pooling (downsampling) -> Repeat -> Flatten -> Fully Connected Layers -> Output (classification/regression). Weights are learned via backpropagation.</p>
+            <p><strong>4. Parameters and Hyperparameters:</strong> Filter size, number of filters, stride, padding, pooling window size, activation function, learning rate, batch size, number of epochs, network depth.</p>
+            <p><strong>5. Strengths and Limitations:</strong></p>
+            <ul>
+                <li><strong>Strengths:</strong> High accuracy in image tasks, automatic feature learning, parameter sharing (efficiency), translation invariance.</li>
+                <li><strong>Limitations:</strong> Computationally intensive (especially training), requires large datasets, "black box" nature (interpretability challenges), sensitive to adversarial attacks.</li>
+            </ul>
+            <p><strong>6. Variants and Extensions:</strong> ResNet, Inception, VGG, U-Net, R-CNN, YOLO, GANs (incorporating CNNs).</p>
+            <p><strong>7. Key Research Papers:</strong> LeNet-5 (LeCun et al., 1998), AlexNet (Krizhevsky et al., 2012), VGG (Simonyan & Zisserman, 2014).</p>
+            <p><strong>8. Implementation Details (Python):</strong> <code>tf.keras.layers.Conv2D</code>, <code>tf.keras.layers.MaxPooling2D</code>, <code>torch.nn.Conv2d</code>, <code>torch.nn.MaxPool2d</code>. Optimizers like Adam, SGD. Loss functions like <code>CategoricalCrossentropy</code>.</p>
+
+            <h3>Problem-Solution & Practical Application</h3>
+            <p><strong>1. The Problem It Solves:</strong>
+            Traditional machine learning algorithms struggle immensely with raw image data due to its high dimensionality. Each pixel is a feature, and small changes in position, scale, or lighting can drastically alter the input, making it difficult for models to learn meaningful patterns. Manually extracting relevant features from images (like edges, corners, or textures) is labor-intensive, often domain-specific, and rarely generalizes well. The core problem CNNs address is the efficient and automatic extraction of hierarchical, spatially invariant features from grid-like data (primarily images), enabling robust pattern recognition and understanding without explicit human feature engineering.</p>
+
+            <p><strong>2. How It Delivers a Solution:</strong>
+            CNNs solve this by employing a series of specialized layers that mimic aspects of the human visual system:</p>
+            <ul>
+            <li><strong>Local Receptive Fields & Shared Weights (Convolutional Layers):</strong> Instead of connecting every input pixel to every neuron, CNNs use small filters (kernels) that slide across the image. Each filter detects a specific local feature (e.g., a vertical edge) across the entire image by sharing the same set of weights. This drastically reduces the number of parameters and makes the model translation-invariant – if a feature is learned in one part of the image, it can be detected anywhere else.</li>
+            <li><strong>Spatial Subsampling (Pooling Layers):</strong> After features are extracted by convolutional layers, pooling layers (like Max Pooling) reduce the spatial dimensions of the feature maps. This reduces computational cost, controls overfitting, and introduces a degree of "invariance" to small shifts or distortions in the input, ensuring that the presence of a feature is more important than its exact location.</li>
+            <li><strong>Hierarchical Feature Learning:</strong> By stacking multiple convolutional and pooling layers, CNNs learn a hierarchy of features. Early layers detect simple patterns (edges, corners), while deeper layers combine these simple patterns into more complex, abstract representations (e.g., eyes, noses, then full faces). This automatic, end-to-end learning process removes the need for manual feature engineering, making them highly adaptable to diverse visual tasks.</li>
+            </ul>
+
+            <p><strong>3. Real-World Case Studies / Business Impact:</strong></p>
+            <ul>
+            <li><strong>Autonomous Vehicles (e.g., Tesla, Waymo):</strong>
+                    <ul>
+                    <li><strong>Problem:</strong> Self-driving cars need to accurately perceive their surroundings in real-time to avoid obstacles, understand traffic signs, and identify pedestrians.</li>
+                    <li><strong>Impact:</strong> CNNs are the backbone of perception systems, enabling object detection (cars, people, traffic lights), lane detection, and scene segmentation. This is critical for safe navigation, reducing accidents, and making autonomous driving a reality.</li>
+                    </ul>
+            </li>
+            <li><strong>Medical Imaging Diagnosis (e.g., Google Health, DeepMind):</strong>
+                    <ul>
+                    <li><strong>Problem:</strong> Analyzing vast amounts of medical images (X-rays, MRIs, CT scans) for subtle anomalies requires highly skilled human experts and is prone to fatigue.</li>
+                    <li><strong>Impact:</strong> CNNs are used to detect diseases like diabetic retinopathy, pneumonia, cancer (from pathology slides), and even predict heart disease risk from retinal scans. They act as powerful diagnostic aids, improving diagnostic speed and accuracy, and potentially enabling earlier detection and treatment.</li>
+                    </ul>
+            </li>
+            <li><strong>Retail & E-commerce (e.g., Amazon, Shopify):</strong>
+                    <ul>
+                    <li><strong>Problem:</strong> Organizing large product catalogs, enabling visual search, and understanding customer product queries.</li>
+                    <li><strong>Impact:</strong> CNNs power visual search (e.g., "find clothes similar to this image"), automated product tagging, inventory management by identifying items on shelves, and enhancing personalized recommendations by understanding product attributes from images. This leads to improved customer experience and operational efficiency.</li>
+                    </ul>
+            </li>
+            <li><strong>Security & Surveillance (e.g., various security firms):</strong>
+                    <ul>
+                    <li><strong>Problem:</strong> Monitoring vast areas for unauthorized access, suspicious activities, or identifying individuals.</li>
+                    <li><strong>Impact:</strong> CNNs are fundamental to facial recognition systems for access control, anomaly detection in video streams (e.g., detecting abandoned bags or unusual crowd behavior), and identifying specific objects or vehicles of interest. This enhances safety, security, and response times.</li>
+                    </ul>
+            </li>
+            <li><strong>Manufacturing Quality Control (e.g., industrial automation companies):</strong>
+                    <ul>
+                    <li><strong>Problem:</strong> Manually inspecting manufactured goods for tiny defects (cracks, scratches, misalignments) is slow, costly, and inconsistent.</li>
+                    <li><strong>Impact:</strong> CNNs are deployed on assembly lines with cameras to automatically inspect products at high speed and accuracy, identifying defects that are invisible to the human eye. This leads to higher product quality, reduced waste, and significant cost savings.</li>
+                    </ul>
+            </li>
+            </ul>
+
+            <p><strong>4. Implementation Workflow:</strong>
+            A typical workflow for using CNNs involves:</p>
+            <ol>
+            <li><strong>Data Collection & Annotation:</strong> Gathering a large dataset of images and meticulously labeling them (e.g., bounding boxes for objects, class labels for classification).</li>
+            <li><strong>Data Preprocessing:</strong> Resizing, normalizing pixel values, and augmenting data (rotating, flipping, cropping) to increase dataset size and improve model generalization.</li>
+            <li><strong>Model Architecture Design:</strong> Selecting or designing a suitable CNN architecture (e.g., ResNet, Inception, or a custom model) and configuring layer types, filter sizes, and pooling strategies.</li>
+            <li><strong>Model Training:</strong> Feeding the preprocessed data to the CNN, iteratively adjusting the model's weights using backpropagation and an optimizer (e.g., Adam), minimizing a loss function (e.g., categorical cross-entropy). This often requires significant computational resources (GPUs).</li>
+            <li><strong>Model Evaluation:</strong> Assessing the trained model's performance on unseen test data using metrics like accuracy, precision, recall, F1-score, or IoU for object detection.</li>
+            <li><strong>Hyperparameter Tuning:</strong> Adjusting learning rate, batch size, number of epochs, and network architecture parameters to optimize performance.</li>
+            <li><strong>Deployment:</strong> Integrating the trained model into production systems (e.g., web applications, mobile apps, edge devices) for real-time inference.</li>
+            </ol>
+
+            <p><strong>5. Tools and Ecosystem (Python):</strong>
+            The Python ecosystem provides robust tools for CNN development:</p>
+            <ul>
+            <li><strong>Deep Learning Frameworks:</strong>
+                    <ul>
+                    <li><strong>TensorFlow / Keras:</strong> The most widely used combination for building and deploying CNNs. Keras provides a high-level, user-friendly API for rapid prototyping.</li>
+                    <li><strong>PyTorch:</strong> Another powerful and flexible framework, often favored for research due to its "define-by-run" graph execution.</li>
+                    </ul>
+            </li>
+            <li><strong>Data Handling & Preprocessing:</strong>
+                    <ul>
+                    <li><strong>NumPy:</strong> Fundamental package for numerical operations on arrays (image data).</li>
+                    <li><strong>OpenCV (cv2):</strong> For advanced image processing tasks (reading, resizing, color conversions).</li>
+                    <li><strong>PIL (Pillow):</strong> Python Imaging Library for basic image manipulation.</li>
+                    <li><strong>Albumentations / Keras ImageDataGenerator / PyTorch DataLoader:</strong> Libraries/modules for efficient data augmentation and loading.</li>
+                    </ul>
+            </li>
+            <li><strong>Visualization:</strong>
+                    <ul>
+                    <li><strong>Matplotlib / Seaborn:</strong> For plotting training curves, visualizing feature maps, or displaying results.</li>
+                    </ul>
+            </li>
+            <li><strong>Deployment:</strong>
+                    <ul>
+                    <li><strong>TensorFlow Serving / TorchServe:</strong> For deploying models as microservices.</li>
+                    <li><strong>TensorFlow Lite / PyTorch Mobile:</strong> For deploying models on mobile or edge devices.</li>
+                    <li><strong>ONNX:</strong> An open standard for representing machine learning models, enabling interchangeability between frameworks for deployment.</li>
+                    </ul>
+            </li>
+            </ul>
+
+            <p><strong>6. Best Practices and Considerations:</strong></p>
+            <ul>
+            <li><strong>Data Quantity and Quality:</strong> CNNs are data-hungry. Large, diverse, and well-annotated datasets are crucial for good performance. Data augmentation is vital.</li>
+            <li><strong>Transfer Learning:</strong> For most real-world tasks, it's more effective to use pre-trained CNN models (trained on massive datasets like ImageNet) and fine-tune them on your specific dataset rather than training from scratch. This saves computational resources and time, and yields better results.</li>
+            <li><strong>Hardware:</strong> Training deep CNNs requires significant computational power, typically GPUs. Cloud platforms (AWS, GCP, Azure) provide accessible GPU resources.</li>
+            <li><strong>Overfitting:</strong> CNNs are prone to overfitting. Techniques like dropout, batch normalization, early stopping, and data augmentation are essential.</li>
+            <li><strong>Interpretability:</strong> While powerful, CNNs can be "black boxes." Techniques like Grad-CAM or LIME can help visualize what parts of an image the CNN is focusing on, aiding in understanding and debugging.</li>
+            <li><strong>Ethical Implications:</strong> Be mindful of biases in training data (leading to biased predictions), privacy concerns in facial recognition, and responsible deployment.</li>
+            </ul>
+        `;
+
+        // --- Predefined Content for Random Forest ---
+        const randomForestContent = `
+            <h3>Concise Overview</h3>
+            <p><strong>1. What It Is:</strong> Random Forest is an ensemble machine learning algorithm that constructs a "forest" of decision trees during training and outputs the mode of the classes (for classification) or mean prediction (for regression) of the individual trees.</p>
+            <p><strong>2. How It Works (in a Nutshell):</strong> It builds multiple decision trees, each trained on a random subset of the data and a random subset of features. This "randomness" helps reduce overfitting and improves generalization. The final prediction is made by combining the predictions of all individual trees.</p>
+            <p><strong>3. Key Strengths:</strong> High accuracy, robust to overfitting, handles large datasets with many features, good for both classification and regression, provides feature importance.</p>
+            <p><strong>4. Common Applications:
+            </strong> Fraud detection, customer churn prediction, medical diagnosis, stock market prediction, image classification.</p>
+            <p><strong>5. Python Quick Start:</strong> Implemented in Scikit-learn (<code>sklearn.ensemble.RandomForestClassifier</code>, <code>sklearn.ensemble.RandomForestRegressor</code>).</p>
+
+            <h3>Technical Deep Dive</h3>
+            <p><strong>1. Abstract:</strong> Random Forest is a powerful ensemble learning method that operates by constructing a multitude of decision trees at training time and outputting the class that is the mode of the classes (classification) or mean prediction (regression) of the individual trees. It mitigates the overfitting issue common in single decision trees.</p>
+            <p><strong>2. Theoretical Foundations:</strong> Built upon the concepts of decision trees and ensemble learning, specifically "Bagging" (Bootstrap Aggregating) and random feature selection. The "wisdom of crowds" principle applies, where combining multiple weak learners results in a strong learner.</p>
+            <p><strong>3. Algorithmic Steps:</strong></p>
+            <ol>
+                <li>For each of <code>N</code> trees to be built:</li>
+                <ol>
+                    <li>Draw a bootstrap sample (with replacement) of <code>M</code> training data points from the original dataset.</li>
+                    <li>Train a decision tree on this bootstrap sample.</li>
+                    <li>At each node of the tree, instead of considering all features, randomly select a subset of <code>k</code> features. Find the best split among these <code>k</code> features.</li>
+                    <li>Grow the tree to its maximum depth or until a stopping criterion is met (e.g., minimum samples per leaf).</li>
+                </ol>
+                <li>For prediction:</li>
+                <ol>
+                    <li>For classification, each tree casts a "vote" for a class, and the final prediction is the class with the most votes (majority voting).</li>
+                    <li>For regression, each tree outputs a numerical prediction, and the final prediction is the average of all individual tree predictions.</li>
+                </ol>
+            </ol>
+            <p><strong>4. Parameters and Hyperparameters:</strong> <code>n_estimators</code> (number of trees), <code>max_features</code> (number of features to consider for best split), <code>max_depth</code> (maximum depth of each tree), <code>min_samples_split</code>, <code>min_samples_leaf</code>, <code>bootstrap</code> (whether bootstrap samples are used).</p>
+            <p><strong>5. Strengths and Limitations:</strong></p>
+            <ul>
+                <li><strong>Strengths:</strong> High accuracy, robust to outliers and noise, handles high-dimensional data, less prone to overfitting than single decision trees, provides estimates of feature importance, implicit handling of missing values.</li>
+                <li><strong>Limitations:</strong> Can be computationally expensive and slow for very large datasets, less interpretable than single decision trees, might not perform as well as boosting algorithms on certain datasets.</li>
+            </ul>
+            <p><strong>6. Variants and Extensions:</strong> Extremely Randomized Trees (ExtraTrees), Isolation Forest (for anomaly detection).</p>
+            <p><strong>7. Key Research Papers:</strong> "Random Forests" by Leo Breiman (2001).</p>
+            <p><strong>8. Implementation Details (Python):</strong> Scikit-learn's <code>sklearn.ensemble.RandomForestClassifier</code> and <code>sklearn.ensemble.RandomForestRegressor</code> are highly optimized. Key methods include <code>fit()</code> for training and <code>predict()</code> for inference. Feature importance can be accessed via <code>feature_importances_</code> attribute.</p>
+
+            <h3>Problem-Solution & Practical Application</h3>
+            <p><strong>1. The Problem It Solves:</strong>
+            Many real-world datasets suffer from high dimensionality, noise, and potential for overfitting, especially when using complex models like deep decision trees. Single decision trees are prone to overfitting to the training data, leading to poor generalization on unseen data. The challenge is to build a robust, accurate, and generalizable predictive model that can handle diverse data types and large feature sets without excessive tuning or risk of overfitting.</p>
+
+            <p><strong>2. How It Delivers a Solution:</strong>
+            Random Forest addresses these problems through two key mechanisms:</p>
+            <ul>
+                <li><strong>Bagging (Bootstrap Aggregating):</strong> It reduces variance by training multiple decision trees on different bootstrap samples (random samples with replacement) of the original dataset. This creates diverse trees, as each tree sees a slightly different version of the data.</li>
+                <li><strong>Random Feature Subspace:</strong> At each split in a decision tree, only a random subset of features is considered. This decorrelates the trees, preventing a few very strong features from dominating all trees and making them too similar. This further reduces variance and improves robustness.</li>
+            </ul>
+            <p>By combining the predictions of these diverse and decorrelated trees (through majority voting for classification or averaging for regression), Random Forest achieves higher accuracy and better generalization than individual trees, while also being less susceptible to overfitting.</p>
+
+            <p><strong>3. Real-World Case Studies / Business Impact:</strong></p>
+            <ul>
+                <li><strong>Fraud Detection (Finance/E-commerce):</strong>
+                    <ul>
+                        <li><strong>Problem:</strong> Identifying fraudulent transactions from a vast stream of legitimate ones, which are often imbalanced and complex.</li>
+                        <li><strong>Impact:</strong> Random Forest can effectively classify transactions as legitimate or fraudulent, leveraging many features (e.g., transaction amount, location, frequency). Its robustness to noise and ability to handle imbalanced data (with proper sampling) significantly reduces financial losses and improves security.</li>
+                    </ul>
+                </li>
+                <li><strong>Customer Churn Prediction (Telecommunications/SaaS):</strong>
+                    <ul>
+                        <li><strong>Problem:</strong> Predicting which customers are likely to cancel their subscriptions or services, allowing businesses to intervene proactively.</li>
+                        <li><strong>Impact:</strong> By analyzing customer behavior, usage patterns, and demographics, Random Forest models can identify high-risk customers. This enables targeted retention campaigns, leading to reduced churn rates and increased customer lifetime value.</li>
+                    </ul>
+                </li>
+                <li><strong>Medical Diagnosis (Healthcare):</strong>
+                    <ul>
+                        <li><strong>Problem:</strong> Assisting in the diagnosis of diseases based on patient symptoms, lab results, and medical history.</li>
+                        <li><strong>Impact:</strong> Random Forest can classify patients into disease categories (e.g., presence or absence of a condition) by learning complex relationships between various medical features. Its ability to handle diverse data types (numerical, categorical) and provide feature importance makes it valuable for clinical decision support.</li>
+                    </ul>
+                </li>
+                <li><strong>Stock Market Prediction (Finance):</strong>
+                    <ul>
+                        <li><strong>Problem:</strong> Forecasting stock prices or market trends based on historical data, economic indicators, and news sentiment.</li>
+                        <li><strong>Impact:</strong> While highly challenging, Random Forest can be used for regression tasks to predict future stock prices or for classification to predict upward/downward trends. Its ability to model non-linear relationships and handle many features makes it a tool for developing trading strategies, though inherent market volatility remains a factor.</li>
+                    </ul>
+                </li>
+                <li><strong>Image Classification (Various Industries):</strong>
+                    <ul>
+                        <li><strong>Problem:</strong> Categorizing images based on their content, especially in scenarios where deep learning CNNs might be overkill or data is limited.</li>
+                        <li><strong>Impact:</strong> For tasks like classifying textures, simple object recognition, or satellite image analysis, Random Forest can be effective when combined with traditional feature extraction methods (e.g., HOG, SIFT). It offers a simpler, faster alternative for certain visual tasks, improving automation in areas like quality control or environmental monitoring.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p><strong>4. Implementation Workflow:</strong>
+            A typical workflow for using Random Forest includes:</p>
+            <ol>
+                <li><strong>Data Collection & Preparation:</strong> Gathering relevant data, handling missing values (Random Forest is robust but imputation can help), and encoding categorical features.</li>
+                <li><strong>Feature Engineering/Selection:</strong> Creating new features if necessary and potentially using Random Forest's built-in feature importance to select the most relevant ones.</li>
+                <li><strong>Model Initialization:</strong> Instantiating the <code>RandomForestClassifier</code> or <code>RandomForestRegressor</code> from Scikit-learn, specifying hyperparameters like <code>n_estimators</code> (number of trees) and <code>max_features</code>.</li>
+                <li><strong>Model Training:</strong> Fitting the model to the training data using the <code>.fit()</code> method.</li>
+                <li><strong>Model Evaluation:</strong> Assessing performance on a separate test set using appropriate metrics (e.g., accuracy, precision, recall, F1-score for classification; R-squared, MSE for regression).</li>
+                <li><strong>Hyperparameter Tuning:</strong> Optimizing hyperparameters using techniques like Grid Search or Random Search to find the best model configuration.</li>
+                <li><strong>Deployment:</strong> Saving the trained model (e.g., using <code>joblib</code> or <code>pickle</code>) and integrating it into applications for making predictions on new, unseen data.</li>
+            </ol>
+
+            <p><strong>5. Tools and Ecosystem (Python):</strong>
+            The Python ecosystem provides excellent support for Random Forest:</p>
+            <ul>
+                <li><strong>Core Library:</strong>
+                    <ul>
+                        <li><strong>Scikit-learn (<code>sklearn</code>):</strong> The primary and highly optimized library for Random Forest. Provides <code>RandomForestClassifier</code> and <code>RandomForestRegressor</code>.</li>
+                    </ul>
+                </li>
+                <li><strong>Data Handling & Analysis:</strong>
+                    <ul>
+                        <li><strong>Pandas:</strong> For data manipulation and analysis (DataFrames).</li>
+                        <li><strong>NumPy:</strong> For numerical operations.</li>
+                    </ul>
+                </li>
+                <li><strong>Visualization:</strong>
+                    <ul>
+                        <li><strong>Matplotlib / Seaborn:</strong> For visualizing data distributions, feature importances, and model performance.</li>
+                        <li><strong>Graphviz (with <code>sklearn.tree.export_graphviz</code>):</strong> To visualize individual decision trees within the forest (though for many trees, this is impractical).</li>
+                    </ul>
+                </li>
+                <li><strong>Model Persistence:</strong>
+                    <ul>
+                        <li><strong>Joblib / Pickle:</strong> For saving and loading trained Random Forest models.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p><strong>6. Best Practices and Considerations:</strong></p>
+            <ul>
+                <li><strong><code>n_estimators</code>:</strong> Generally, more trees lead to better performance but also higher computational cost. Find a balance where performance plateaus.</li>
+                <li><strong><code>max_features</code>:</strong> This is a crucial parameter. For classification, <code>sqrt(n_features)</code> is a common default. For regression, <code>n_features</code> or <code>n_features/3</code> are often used.</li>
+                <li><strong>Data Scaling:</strong> Random Forest is a tree-based algorithm, so it's generally not sensitive to feature scaling (unlike linear models or SVMs).</li>
+                <li><strong>Feature Importance:</strong> Use <code>model.feature_importances_</code> to understand which features contribute most to the predictions, which can aid in feature selection or domain understanding.</li>
+                <li><strong>Interpretability:</strong> While less interpretable than a single decision tree, feature importance and partial dependence plots can offer insights into model behavior.</li>
+                <li><strong>Memory Usage:</strong> For very large datasets and many trees, Random Forests can consume significant memory.</li>
+            </ul>
+        `;
+
+        // --- Predefined Content for Deep Boltzmann Machine (DBM) ---
+        const dbmContent = `
+            <h3>Concise Overview</h3>
+            <p><strong>1. What It Is:</strong> A Deep Boltzmann Machine (DBM) is a type of deep generative neural network composed of multiple layers of stochastic, binary units (neurons) with connections between layers and within layers. It's designed to learn complex, hierarchical representations of input data.</p>
+            <p><strong>2. How It Works (in a Nutshell):</strong> DBMs learn by adjusting connection weights to model the probability distribution of the input data. They use a layer-by-layer pre-training approach, typically with Restricted Boltzmann Machines (RBMs), followed by fine-tuning to capture intricate patterns and generate new, similar data.</p>
+            <p><strong>3. Key Strengths:</strong> Excellent for unsupervised feature learning, generative modeling (creating new data), dimensionality reduction, and robust to noisy or incomplete data.</p>
+            <p><strong>4. Common Applications:</strong> Image and speech recognition, collaborative filtering, dimensionality reduction, and feature learning for other models.</p>
+            <p><strong>5. Python Quick Start:</strong> Often implemented using deep learning frameworks like TensorFlow or PyTorch, though pre-built, high-level DBM libraries are less common than for CNNs.</p>
+
+            <h3>Technical Deep Dive</h3>
+            <p><strong>1. Abstract:</strong> Deep Boltzmann Machines are multi-layer undirected graphical models with stochastic binary units. They are designed to learn complex, hierarchical representations by modeling the joint probability distribution over the visible and hidden units, often trained greedily layer-by-layer using RBMs.</p>
+            <p><strong>2. Theoretical Foundations:</strong> Rooted in statistical physics and probability theory, specifically Markov Random Fields and energy-based models. They are a generalization of Restricted Boltzmann Machines (RBMs) to multiple hidden layers, aiming to learn a deep generative model of the data.</p>
+            <p><strong>3. Algorithmic Steps:</strong></p>
+            <ol>
+                <li><strong>Pre-training (Greedy Layer-wise):</strong>
+                    <ol>
+                        <li>Train the first RBM on the raw input data.</li>
+                        <li>Use the activations of the first RBM's hidden layer as input to train a second RBM.</li>
+                        <li>Repeat this process for each subsequent layer, building a stack of RBMs.</li>
+                    </ol>
+                </li>
+                <li><strong>Fine-tuning (Joint Training):</strong>
+                    <ol>
+                        <li>After pre-training, the entire DBM is fine-tuned using a contrastive divergence-like algorithm (e.g., Persistent Contrastive Divergence) or variational methods. This step adjusts all weights simultaneously to improve the overall generative model.</li>
+                    </ol>
+                </li>
+                <li><strong>Inference:</strong> Given a visible input, the DBM can infer the states of the hidden units. For generative tasks, it can sample from the learned distribution to create new data.</li>
+            </ol>
+            <p><strong>4. Parameters and Hyperparameters:</strong> Number of layers, number of units per layer, learning rate, number of Gibbs sampling steps (for contrastive divergence), regularization parameters, activation functions (typically sigmoid for binary units).</p>
+            <p><strong>5. Strengths and Limitations:</strong></p>
+            <ul>
+                <li><strong>Strengths:</strong> Effective for unsupervised learning and feature extraction, capable of learning rich hierarchical representations, robust to missing data, can be used for generative tasks.</li>
+                <li><strong>Limitations:</strong> Training is computationally intensive and complex (especially fine-tuning), inference can be slow due to the need for sampling, less popular now compared to GANs and VAEs for generative tasks due to training difficulties.</li>
+            </ul>
+            <p><strong>6. Variants and Extensions:</strong> Deep Belief Networks (DBNs - a related generative model, often used interchangeably with DBMs in some contexts, but DBMs have undirected connections between all layers), Conditional DBMs.</p>
+            <p><strong>7. Key Research Papers:</strong> "Deep Boltzmann Machines" by Ruslan Salakhutdinov and Geoffrey Hinton (2009).</p>
+            <p><strong>8. Implementation Details (Python):</strong> While direct high-level DBM libraries are rare, they can be built using lower-level deep learning frameworks. Implementing the sampling procedures (e.g., Gibbs sampling) and contrastive divergence for training is key. Often, DBNs are more commonly found in practical implementations.</p>
+
+            <h3>Problem-Solution & Practical Application</h3>
+            <p><strong>1. The Problem It Solves:</strong>
+            Many real-world datasets, especially high-dimensional ones like images or text, have complex underlying structures and dependencies that are difficult for traditional models to capture. Unsupervised learning aims to discover these hidden patterns without explicit labels. The challenge is to build a model that can learn meaningful, hierarchical representations from raw, unlabeled data, and potentially generate new data that resembles the training distribution.</p>
+
+            <p><strong>2. How It Delivers a Solution:</strong>
+            Deep Boltzmann Machines address this by:</p>
+            <ul>
+                <li><strong>Hierarchical Feature Learning:</strong> DBMs are composed of multiple layers of interconnected, stochastic (probabilistic) units. Each layer learns increasingly abstract representations of the input data. For example, in images, the first layer might learn edges, the second might combine edges into shapes, and so on.</li>
+                <li><strong>Generative Modeling:</strong> By modeling the joint probability distribution of the input data and its hidden representations, DBMs can not only learn features but also generate new data samples that are consistent with the learned distribution. This means they can "imagine" new images or text similar to what they've seen.</li>
+                <li><strong>Unsupervised Pre-training:</strong> DBMs often utilize a greedy layer-wise pre-training strategy, where each layer (typically as a Restricted Boltzmann Machine) is trained independently to learn features. This pre-training initializes the network weights in a good region, making the subsequent fine-tuning of the entire deep network more feasible and effective.</li>
+            </ul>
+            <p>This approach allows DBMs to learn rich, hierarchical, and distributed representations of data in an unsupervised manner, making them powerful for tasks where labeled data is scarce or for understanding complex data structures.</p>
+
+            <p><strong>3. Real-World Case Studies / Business Impact:</strong></p>
+            <ul>
+                <li><strong>Feature Learning for Classification/Regression (General ML):</strong>
+                    <ul>
+                        <li><strong>Problem:</strong> For complex datasets, manually engineering features can be difficult and time-consuming.</li>
+                        <li><strong>Impact:</strong> DBMs can learn effective, high-level features from unlabeled data. These learned features can then be used as input to simpler supervised learning models (like SVMs or logistic regression), often leading to improved performance compared to using raw data or hand-crafted features. This reduces the reliance on labeled data and expert feature engineering.</li>
+                    </ul>
+                </li>
+                <li><strong>Dimensionality Reduction (Data Analysis):</strong>
+                    <ul>
+                        <li><strong>Problem:</strong> High-dimensional data can be difficult to visualize, analyze, and process efficiently.</li>
+                        <li><strong>Impact:</strong> DBMs can learn lower-dimensional, compressed representations of data while preserving essential information. This is useful for data visualization, reducing storage requirements, and speeding up subsequent machine learning tasks.</li>
+                    </ul>
+                </li>
+                <li><strong>Collaborative Filtering / Recommender Systems (E-commerce/Media):</strong>
+                    <ul>
+                        <li><strong>Problem:</strong> Predicting user preferences for items (e.g., movies, products) based on past interactions, often with sparse data.</li>
+                        <li><strong>Impact:</strong> DBMs can model the complex relationships between users and items, learning latent features that explain preferences. This allows for more accurate recommendations, improving user engagement and sales. While more complex methods like matrix factorization are common, DBMs offer a deep learning approach to this problem.</li>
+                    </ul>
+                </li>
+                <li><strong>Image and Speech Recognition (Early Deep Learning):</strong>
+                    <ul>
+                        <li><strong>Problem:</strong> Early deep learning faced challenges in training very deep networks.</li>
+                        <li><strong>Impact:</strong> DBMs (and DBNs) were foundational in demonstrating the effectiveness of unsupervised pre-training for initializing deep networks, which could then be fine-tuned for supervised tasks like image classification or speech recognition. This was a crucial step in the development of modern deep learning, paving the way for the success of CNNs and RNNs.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p><strong>4. Implementation Workflow:</strong>
+            Implementing a DBM is more involved than many other algorithms:</p>
+            <ol>
+                <li><strong>Data Preprocessing:</strong> Data typically needs to be binarized (0s and 1s) for standard DBMs, though extensions exist for real-valued data. Normalization is also crucial.</li>
+                <li><strong>RBM Stack Construction:</strong>
+                    <ol>
+                        <li>Train the first RBM using Contrastive Divergence (CD) on the input data.</li>
+                        <li>Extract the activations (probabilities of hidden units being active) from the trained first RBM.</li>
+                        <li>Train the second RBM using these activations as input.</li>
+                        <li>Repeat for subsequent layers.</li>
+                    </ol>
+                </li>
+                <li><strong>Full DBM Fine-tuning:</strong> After pre-training, the entire DBM (all layers and connections) is fine-tuned. This involves a more complex training procedure (e.g., Persistent Contrastive Divergence or Mean-Field Variational Inference) to learn the joint distribution over all visible and hidden layers.</li>
+                <li><strong>Inference/Sampling:</strong> For feature extraction, the activations of the hidden layers can be used. For generative tasks, Gibbs sampling is used to draw new samples from the learned distribution.</li>
+                <li><strong>Evaluation:</strong> Assessing the quality of learned features or generated samples can be challenging, often relying on downstream task performance or qualitative assessment.</li>
+            </ol>
+
+            <p><strong>5. Tools and Ecosystem (Python):</strong>
+            While dedicated, high-level DBM libraries are not as prevalent as for CNNs due to their complexity, they can be built using:</p>
+            <ul>
+                <li><strong>Deep Learning Frameworks:</strong>
+                    <ul>
+                        <li><strong>TensorFlow / PyTorch:</strong> These frameworks provide the low-level operations (matrix multiplications, activation functions, sampling mechanisms) necessary to implement RBMs and DBMs from scratch or using custom layers.</li>
+                    </ul>
+                </li>
+                <li><strong>Numerical Libraries:</strong>
+                    <ul>
+                        <li><strong>NumPy:</strong> Essential for numerical computations and data manipulation.</li>
+                    </ul>
+                </li>
+                <li><strong>Specialized Implementations (less common now):</strong> You might find older, research-oriented implementations or specific libraries for RBMs that could be extended to DBMs.</li>
+            </ul>
+
+            <p><strong>6. Best Practices and Considerations:</strong></p>
+            <ul>
+                <li><strong>Pre-training is Crucial:</strong> The greedy layer-wise pre-training is vital for initializing DBMs effectively and preventing them from getting stuck in poor local optima during fine-tuning.</li>
+                <li><strong>Computational Cost:</strong> Training DBMs, especially the fine-tuning phase with sampling, can be very computationally expensive and time-consuming.</li>
+                <li><strong>Binary Units:</strong> Standard DBMs assume binary units. For real-valued data, techniques like Gaussian-Bernoulli RBMs or pre-processing to binarize data are needed.</li>
+                <li><strong>Comparison with Modern Generative Models:</strong> While historically significant, DBMs have largely been superseded by Generative Adversarial Networks (GANs) and Variational Autoencoders (VAEs) for state-of-the-art generative tasks due to their often simpler training and superior sample quality. However, DBMs' theoretical foundations remain important.</li>
+                <li><strong>Applications:</strong> DBMs are more often considered for unsupervised feature learning or as a stepping stone in understanding deep generative models rather than direct, standalone application in many modern business cases.</li>
+            </ul>
+        `;
+
+        // --- Predefined Content for Deep Belief Network (DBN) ---
+        const dbnContent = `
+            <h3>Concise Overview</h3>
+            <p><strong>1. What It Is:</strong> A Deep Belief Network (DBN) is a generative deep neural network composed of multiple layers of Restricted Boltzmann Machines (RBMs) or other simple generative models. It's primarily used for unsupervised learning of hierarchical feature representations and can also be fine-tuned for supervised tasks.</p>
+            <p><strong>2. How It Works (in a Nutshell):</strong> DBNs are trained layer-by-layer in an unsupervised manner, where each RBM learns to model the distribution of its input (either raw data or the activations of the previous layer). After this greedy pre-training, the entire network can be fine-tuned using backpropagation for a specific task.</p>
+            <p><strong>3. Key Strengths:</strong> Effective for unsupervised pre-training of deep networks, capable of learning abstract feature hierarchies, can be used for both generative and discriminative tasks, and helps overcome challenges in training very deep neural networks from scratch.</p>
+            <p><strong>4. Common Applications:</strong> Image recognition, speech recognition, dimensionality reduction, feature learning for classification/regression, and generative modeling.</p>
+            <p><strong>5. Python Quick Start:</strong> Implementations often involve building RBMs using frameworks like TensorFlow or PyTorch and stacking them, rather than a single high-level DBN class.</p>
+
+            <h3>Technical Deep Dive</h3>
+            <p><strong>1. Abstract:</strong> Deep Belief Networks are probabilistic generative models composed of multiple layers of stochastic, latent variables. They are typically constructed by stacking Restricted Boltzmann Machines (RBMs) and trained greedily layer-by-layer, followed by a global fine-tuning phase for improved performance on discriminative tasks.</p>
+            <p><strong>2. Theoretical Foundations:</strong> Built upon the principles of Restricted Boltzmann Machines (RBMs) and the concept of greedy layer-wise unsupervised pre-training. Each RBM in the stack learns a non-linear transformation of its input, aiming to capture the statistical regularities of the data at increasing levels of abstraction.</p>
+            <p><strong>3. Algorithmic Steps:</strong></p>
+            <ol>
+                <li><strong>Greedy Layer-wise Pre-training:</strong>
+                    <ol>
+                        <li>Train the first RBM using Contrastive Divergence (CD) on the raw input data (visible layer). The hidden layer of this RBM learns low-level features.</li>
+                        <li>Once the first RBM is trained, its hidden layer activations (or samples from them) are treated as the input (visible layer) for the second RBM.</li>
+                        <li>Train the second RBM on these activations.</li>
+                        <li>Repeat this process for each subsequent layer, effectively stacking RBMs on top of each other. Each RBM learns a higher-level, more abstract representation.</li>
+                    </ol>
+                </li>
+                <li><strong>Fine-tuning (Optional, for Discriminative Tasks):</strong>
+                    <ol>
+                        <li>After all RBMs are pre-trained, the entire DBN can be "unrolled" into a feedforward neural network.</li>
+                        <li>A final output layer (e.g., softmax for classification) is added.</li>
+                        <li>The entire network is then fine-tuned using standard backpropagation with labeled data, allowing the pre-trained weights to be adjusted for a specific discriminative task.</li>
+                    </ol>
+                </li>
+            </ol>
+            <p><strong>4. Parameters and Hyperparameters:</strong> Number of RBM layers, number of units per RBM layer, learning rate for RBM training, number of Gibbs sampling steps (for CD), learning rate for fine-tuning, number of epochs for both pre-training and fine-tuning.</p>
+            <p><strong>5. Strengths and Limitations:</strong></p>
+            <ul>
+                <li><strong>Strengths:</strong> Addresses the vanishing/exploding gradient problem in deep networks (by providing good initial weights), effective for unsupervised feature learning, can be used for both generative and discriminative tasks, capable of learning complex data distributions.</li>
+                <li><strong>Limitations:</strong> Training can be complex and computationally intensive, especially the RBM training phase. Less popular for state-of-the-art generative modeling compared to GANs/VAEs, and supervised deep learning (like CNNs, RNNs) often performs better for discriminative tasks when large labeled datasets are available.</li>
+            </ul>
+            <p><strong>6. Variants and Extensions:</strong> Conditional DBNs, DBNs with different types of RBMs (e.g., Gaussian-Bernoulli RBMs for real-valued data).</p>
+            <p><strong>7. Key Research Papers:</strong> "A Fast Learning Algorithm for Deep Belief Nets" by Geoffrey Hinton, Simon Osindero, and Yee-Whye Teh (2006).</p>
+            <p><strong>8. Implementation Details (Python):</strong> DBNs are typically implemented by combining individual RBM implementations. Libraries like TensorFlow and PyTorch provide the necessary building blocks (e.g., custom layers, optimizers, sampling functions) to construct and train RBMs and stack them into a DBN. There aren't many high-level, off-the-shelf DBN libraries readily available for production use compared to other deep learning models.</p>
+
+            <h3>Problem-Solution & Practical Application</h3>
+            <p><strong>1. The Problem It Solves:</strong>
+            In the early days of deep learning, training very deep neural networks from scratch was notoriously difficult due to issues like vanishing gradients and the need for vast amounts of labeled data. Traditional shallow models struggled to capture complex, hierarchical patterns in high-dimensional data like images or speech. DBNs were developed to address the challenge of effectively training deep architectures and learning meaningful representations from largely unlabeled data.</p>
+
+            <p><strong>2. How It Delivers a Solution:</strong>
+            Deep Belief Networks provide a solution through a clever two-stage process:</p>
+            <ul>
+                <li><strong>Greedy Layer-wise Unsupervised Pre-training:</strong> This is the core innovation. Instead of training the entire deep network at once, DBNs train one layer at a time. Each layer is trained as a Restricted Boltzmann Machine (RBM) in an unsupervised manner, learning to reconstruct its input (which is either the raw data or the hidden activations of the previous RBM). This process effectively initializes the weights of the deep network, placing them in a region of the weight space that is already good for feature extraction, thus mitigating the vanishing gradient problem and making subsequent training easier.</li>
+                <li><strong>Discriminative Fine-tuning (Optional):</strong> After the unsupervised pre-training, the entire DBN can be "unrolled" into a feedforward neural network. A supervised output layer is added, and the whole network is then fine-tuned using a small amount of labeled data and backpropagation. This allows the network to adapt its learned features specifically for a classification or regression task, leveraging the powerful representations learned during pre-training.</li>
+            </ul>
+            <p>This approach enabled the successful training of deep architectures when end-to-end supervised training was challenging, paving the way for the deep learning revolution.</p>
+
+            <p><strong>3. Real-World Case Studies / Business Impact:</strong></p>
+            <ul>
+                <li><strong>Speech Recognition (Early Deep Learning):</strong>
+                    <ul>
+                        <li><strong>Problem:</strong> Traditional speech recognition systems relied on hand-crafted features and shallow models, struggling with the variability and complexity of human speech.</li>
+                        <li><strong>Impact:</strong> DBNs were successfully applied to speech recognition tasks, demonstrating significant improvements in accuracy by learning robust, hierarchical features from raw audio data. This was a key breakthrough that led to the widespread adoption of deep learning in speech processing, influencing modern voice assistants.</li>
+                    </ul>
+                </li>
+                <li><strong>Image Classification and Recognition (Early Deep Learning):</strong>
+                    <ul>
+                        <li><strong>Problem:</strong> Classifying images accurately was challenging due to high dimensionality and the difficulty of extracting invariant features.</li>
+                        <li><strong>Impact:</strong> DBNs were among the first deep models to achieve impressive results on image datasets like MNIST (handwritten digits) and even early versions of ImageNet. By learning hierarchical visual features, they provided a powerful alternative to traditional computer vision pipelines, contributing to the rise of deep learning in image analysis.</li>
+                    </ul>
+                </li>
+                <li><strong>Feature Learning for Other Models (General Machine Learning):</strong>
+                    <ul>
+                        <li><strong>Problem:</strong> For many complex datasets, designing effective features for traditional machine learning algorithms (like SVMs or logistic regression) is a major bottleneck.</li>
+                        <li><strong>Impact:</strong> DBNs can act as powerful unsupervised feature extractors. The learned hidden layer activations from a pre-trained DBN can be used as input features for other, simpler classifiers. This allows businesses to leverage unlabeled data to improve the performance of their predictive models, especially in domains with limited labeled data.</li>
+                    </ul>
+                </li>
+                <li><strong>Dimensionality Reduction and Data Visualization (Data Science):</strong>
+                    <ul>
+                        <li><strong>Problem:</strong> Understanding and visualizing high-dimensional data is inherently difficult.</li>
+                        <li><strong>Impact:</strong> DBNs can learn lower-dimensional representations of data that preserve important information, similar to autoencoders. These compressed representations can be used for more effective data visualization or as input to other algorithms, making complex datasets more manageable for analysis.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p><strong>4. Implementation Workflow:</strong>
+            Implementing a DBN typically involves:</p>
+            <ol>
+                <li><strong>Data Preparation:</strong> Data often needs to be normalized or binarized depending on the type of RBMs used in the DBN.</li>
+                <li><strong>RBM Layer-wise Training:</strong>
+                    <ol>
+                        <li>Initialize the first RBM.</li>
+                        <li>Train the first RBM using an iterative algorithm like Contrastive Divergence, optimizing its weights to reconstruct the input data.</li>
+                        <li>After training, obtain the probabilistic activations of the first RBM's hidden layer.</li>
+                        <li>These activations become the input for the second RBM. Initialize and train the second RBM.</li>
+                        <li>Repeat this process for each desired layer in the DBN.</li>
+                    </ol>
+                </li>
+                <li><strong>Network Unrolling (for Discriminative Tasks):</strong>
+                    <ol>
+                        <li>Connect the pre-trained RBM layers sequentially, forming a deep feedforward network.</li>
+                        <li>Add a task-specific output layer (e.g., softmax for classification).</li>
+                    </ol>
+                </li>
+                <li><strong>Fine-tuning (Supervised):</strong>
+                    <ol>
+                        <li>Train the entire unrolled network using backpropagation with labeled data. This step adjusts all weights across all layers to optimize for the specific supervised task.</li>
+                    </ol>
+                </li>
+                <li><strong>Inference:</strong> Use the trained DBN (either for feature extraction from hidden layers or for direct prediction from the output layer).</li>
+            </ol>
+
+            <p><strong>5. Tools and Ecosystem (Python):</strong>
+            Building DBNs in Python typically involves using deep learning frameworks that provide the primitives for constructing and training RBMs:</p>
+            <ul>
+                <li><strong>Deep Learning Frameworks:</strong>
+                    <ul>
+                        <li><strong>TensorFlow / PyTorch:</strong> These provide the foundational building blocks (e.g., layers, optimizers, custom training loops) necessary to implement RBMs and stack them to form a DBN. You would typically write custom code for the RBM training loop (e.g., Contrastive Divergence).</li>
+                    </ul>
+                </li>
+                <li><strong>Numerical Libraries:</strong>
+                    <ul>
+                        <li><strong>NumPy:</strong> Essential for numerical operations and data handling.</li>
+                    </ul>
+                </li>
+                <li><strong>Specialized Libraries (less common now):</strong> While less maintained for DBNs specifically, some older libraries or research codebases might exist that offer higher-level abstractions for RBMs.</li>
+            </ul>
+
+            <p><strong>6. Best Practices and Considerations:</strong></p>
+            <ul>
+                <li><strong>Greedy Pre-training Importance:</strong> The layer-wise unsupervised pre-training is critical for DBNs to learn effective representations and avoid poor local optima during fine-tuning.</li>
+                <li><strong>Computational Cost:</strong> Training RBMs and DBNs can be computationally intensive, especially for large datasets and many layers, due to the sampling procedures involved.</li>
+                <li><strong>Data Representation:</strong> Standard RBMs (and thus DBNs) often assume binary inputs. For real-valued data, Gaussian-Bernoulli RBMs or appropriate data normalization/binarization is necessary.</li>
+                <li><strong>Historical Significance:</strong> DBNs were groundbreaking in showing how to train deep networks effectively. However, for many modern applications, end-to-end supervised training of CNNs, RNNs, or Transformers often yields better results, especially with abundant labeled data. DBNs remain important for understanding the evolution of deep learning and for certain unsupervised learning scenarios.</li>
+                <li><strong>Interpretability:</strong> Like many deep learning models, DBNs can be challenging to interpret directly, though analyzing learned weights might offer some insights into feature detection.</li>
+            </ul>
+        `;
+
         const algorithmListDiv = document.getElementById('algorithm-list');
         const algorithmDetailTitle = document.getElementById('algorithm-detail-title');
         const algorithmDetailContent = document.getElementById('algorithm-detail-content');
@@ -243,12 +788,32 @@
             }
         }
 
-        // Function to fetch algorithm details using Gemini API
+        // Function to fetch algorithm details (or use predefined content for specific algorithms)
         async function fetchAlgorithmDetails(algorithmName) {
             algorithmDetailContent.innerHTML = ''; // Clear previous content
             loadingIndicator.classList.remove('hidden');
             errorMessage.classList.add('hidden');
 
+            // Check for predefined content for specific algorithms
+            if (algorithmName === "Convolutional Neural Network (CNN)") {
+                algorithmDetailContent.innerHTML = cnnContent;
+                loadingIndicator.classList.add('hidden');
+                return;
+            } else if (algorithmName === "Random Forest") {
+                algorithmDetailContent.innerHTML = randomForestContent;
+                loadingIndicator.classList.add('hidden');
+                return;
+            } else if (algorithmName === "Deep Boltzmann Machine (DBM)") {
+                algorithmDetailContent.innerHTML = dbmContent;
+                loadingIndicator.classList.add('hidden');
+                return;
+            } else if (algorithmName === "Deep Belief Network (DBN)") {
+                algorithmDetailContent.innerHTML = dbnContent;
+                loadingIndicator.classList.add('hidden');
+                return;
+            }
+
+            // Fallback to Gemini API for other algorithms
             try {
                 const prompt = `Provide a concise, 2-3 sentence explanation of the machine learning algorithm "${algorithmName}". Focus on its primary purpose and how it generally works.`;
                 let chatHistory = [];
